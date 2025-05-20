@@ -1,3 +1,4 @@
 How to login with OTP ?
 
 Logic for adding hotels
+Finalizing adding hotels 

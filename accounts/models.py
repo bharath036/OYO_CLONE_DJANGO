@@ -18,6 +18,7 @@ class HotelVendor(User):
     profile_picture = models.ImageField(upload_to="profile")
     email_token = models.CharField(max_length=100, null=True, blank=True)
     otp = models.CharField(max_length=10, null = True,blank=True)
+    is_verified     = models.BooleanField(default=True)
 
     class Meta:
         db_table = "hotel_vendor"
@@ -42,7 +43,7 @@ class Hotel(models.Model):
 
 
 class HotelImages(models.Model):
-    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE,related_name="hotels")
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE,related_name="hotel_images")
     image = models.ImageField(upload_to="hotels")
 
 class HotelManager(models.Model):
