@@ -14,12 +14,13 @@ urlpatterns = [
     path('login-vendor/',views.login_vendor,name="login_vendor"),
     path('dashboard/',views.dashboard,name = "dashboard"),
     path('add-hotel/',views.add_hotel,name = "add_hotel"),
+    path('edit-hotel/<slug>/',views.edit_hotel,name = "edit_hotel"),
     path('upload-images/<slug>/',views.upload_images,name="upload_images"),
 
     path('delete_image/<id>/',views.delete_image,name="delete_image"),
 
 
-
+    path('logout_view', views.logout_view,name = "logout_view"),
     #path('verify-account/<token>/',views.verify_email_token,name="verify_email_token"),
     # urls.py
     path('verify-account/<str:token>/', views.verify_email_token, name="verify_email_token"),
