@@ -2,3 +2,89 @@ How to login with OTP ?
 
 Logic for adding hotels
 Finalizing adding hotels 
+
+What is the N+1 problem? when you try to hit foreign key relation
+related data
+difference between select related and prefetch related
+see where this can be used
+
+Catching stratergies
+it has to use lesser hardware and more users has to it 
+reduct cost
+try to add catching stratergies , scaling
+
+client -->Django app --> db 
+suppose client searches for something, then client sends a request it goes to django server  
+then django looks into db and if it is available, then it returns response
+
+The database queries are very very slow and take a cost
+Suppose if we are dealing with lakhs of users ., then app will slow down
+We have to develop a layer between django and database  REDIS , the layer that we implemented
+By appling this layer our app works fast
+database is stored in key - value pairs
+
+memurai --> tool to run redis on our system
+Djano redis  --> pip install django-redis 
+
+Then we have implement catching layer before that we need to see documentation and
+add few things
+
+Add below in settings.py 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+Then look for django cache framework
+
+given a URL, try finding that page in the cache
+if the page is in the cache:
+    return the cached page
+else:
+    generate the page
+    save the generated page in the cache (for next time)
+    return the generated page
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+
+We already implemented about catche similar thing in settings.py
+
+python manage,py createcatchetable
+
+Then implement cache decorator 
+
+from django.views.decorators.cache import cache_page
+
+
+@cache_page(60 * 15) --> cache foor how much time?
+def my_view(request): ...
+
+After implementing this our database queries are not being hit, so it update very fast 
+Cache limitations also there 
+Like if data is getting updated prequently on web pages --> the cache will make a problem here 
+
+------------------------------------------------------------------------------------------------------------
+
+Profiling and Benchmarking
+Profiling means measuring the performance of different parts of our django app to
+identify bottlenecks.
+
+
+Benchmarking
+It involves measuring the performance of our django app under different condition
+to identify its maximum capacity and limitations 
+traffic --> how many users can use this app
+
+locust for seeing loadbalancing of our app --> wee can see how many reuests, type of request on each page 
+
+

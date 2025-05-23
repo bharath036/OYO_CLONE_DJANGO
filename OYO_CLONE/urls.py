@@ -19,12 +19,17 @@ from django.urls import path,include
 from django.conf.urls.static import static 
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from debug_toolbar import urls as debug_toolbar_urls
+#from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
+    #path('__debug__/', include(debug_toolbar.urls)),
+    path('__debug__/', include(debug_toolbar_urls)),
     path('',include('home.urls')),
     path('accounts/',include('accounts.urls')),
     path('admin/', admin.site.urls),
-]
+] 
+#+ debug_toolbar_urls()
 
 # Serve static files in development mode
 '''
