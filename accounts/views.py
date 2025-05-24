@@ -68,6 +68,7 @@ def register(request):
         hotel_user.set_password(password)
         hotel_user.save()
         sendEmailToken(email,hotel_user.email_token)
+        print("ok")
 
         messages.success(request, "Email Sent to your Email")
         return redirect('/accounts/register/')
