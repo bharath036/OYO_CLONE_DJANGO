@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: oyo_db
+      MYSQL_USER: oyo_user
+      MYSQL_PASSWORD: oyo_pass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: django_app
+    command: >
+      sh -c "until nc -z db 3306;
+         do echo '⏳ Waiting for MySQL...'; sleep 2;
+         done;
+         echo '✅ MySQL is up - starting Django...';
+         python manage.py migrate &&
+         python manage.py runserver 0.0.0.0:8000"
+
+    
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DB_NAME: oyo_db
+      DB_USER: oyo_user
+      DB_PASSWORD: oyo_pass
+      DB_HOST: db
+
+volumes:
+  mysql_data:

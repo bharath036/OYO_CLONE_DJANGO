@@ -3,10 +3,10 @@ from accounts.models import Hotel,HotelUser
 from home.models import HotelBooking
 from datetime import datetime
 from django.contrib import messages
-from django.views.decorators.cache import cache_page
+#from django.views.decorators.cache import cache_page
 
 
-@cache_page(60 * 15)
+#@cache_page(60 * 15)
 # Create your views here.
 def index(request):
     #hotels = Hotel.objects.all()

@@ -29,9 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+#    'debug_toolbar',
 INSTALLED_APPS = [
-    'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'accounts'
 ]
 
+#'debug_toolbar.middleware.DebugToolbarMiddleware',
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
 ]
 INTERNAL_IPS = [
     # ...
@@ -89,7 +89,7 @@ DATABASES = {
     }
 }
 '''
-
+'''
 #mysql configurations
 DATABASES = {
 	'default': {
@@ -101,7 +101,21 @@ DATABASES = {
 		'PORT':'3306',
 	}
 }
+'''
+import os
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("DB_NAME", "oyo_db"),
+        'USER': os.getenv("DB_USER", "oyo_user"),
+        'PASSWORD': os.getenv("DB_PASSWORD", "oyo_pass"),
+        'HOST': os.getenv("DB_HOST", "db"),  # 'db' is the service name in docker-compose
+        'PORT': '3306',
+    }
+}
+
+'''
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -111,7 +125,7 @@ CACHES = {
         }
     }
 }
-
+'''
 
 
 # Password validation
